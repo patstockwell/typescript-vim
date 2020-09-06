@@ -129,7 +129,9 @@ syntax keyword typescriptGlobalNodeObjects  module exports global process __dirn
 
 syntax keyword typescriptExceptions try catch throw finally Error EvalError RangeError ReferenceError SyntaxError TypeError URIError
 
-syntax keyword typescriptReserved constructor declare as interface module abstract enum int short export interface static byte extends long super char final native synchronized class float package throws goto private transient debugger implements protected volatile double import public type namespace from get set keyof
+syntax keyword typescriptReserved constructor declare as module abstract enum int short export static byte extends long super char final native synchronized class float package throws goto private transient debugger implements protected volatile double import public namespace from get set keyof
+
+syntax keyword typescriptTypeDefinition type interface
 "}}}
 "" typescript/DOM/HTML/CSS specified things"{{{
 
@@ -139,7 +141,7 @@ syntax keyword typescriptReserved constructor declare as interface module abstra
   syn match typescriptParameters "([a-zA-Z0-9_?.$][\w?.$]*)\s*:\s*([a-zA-Z0-9_?.$][\w?.$]*)" contained skipwhite
 "}}}
 " DOM2 Objects"{{{
-  syntax keyword typescriptType DOMImplementation DocumentFragment Node NodeList NamedNodeMap CharacterData Attr Element Text Comment CDATASection DocumentType Notation Entity EntityReference ProcessingInstruction void any string boolean number symbol never object unknown
+  syntax keyword typescriptType DOMImplementation DocumentFragment Node NodeList NamedNodeMap CharacterData Attr Element Text Comment CDATASection DocumentType Notation Entity EntityReference ProcessingInstruction void any string boolean number symbol never object unknown Promise
   syntax keyword typescriptExceptions DOMException
 "}}}
 " DOM2 CONSTANT"{{{
@@ -151,6 +153,8 @@ syntax keyword typescriptReserved constructor declare as interface module abstra
   syntax keyword typescriptHtmlEvents onblur onclick oncontextmenu ondblclick onfocus onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover onmouseup onresize onload onsubmit
   syntax case match
 "}}}
+
+syntax match typescriptFuncCall /\<\K\k*\ze\s*(/
 
 " Follow stuff should be highligh within a special context
 " While it can't be handled with context depended with Regex based highlight
@@ -189,7 +193,7 @@ syntax match typescriptDotNotation "\.style\." nextgroup=typescriptCssStyles
 
 
 "" Code blocks
-syntax cluster typescriptAll contains=typescriptComment,typescriptLineComment,typescriptDocComment,typescriptStringD,typescriptStringS,typescriptStringB,typescriptRegexpString,typescriptNumber,typescriptFloat,typescriptDecorators,typescriptLabel,typescriptSource,typescriptType,typescriptOperator,typescriptBoolean,typescriptNull,typescriptFuncKeyword,typescriptConditional,typescriptGlobal,typescriptRepeat,typescriptBranch,typescriptStatement,typescriptGlobalObjects,typescriptMessage,typescriptIdentifier,typescriptStorageClass,typescriptExceptions,typescriptReserved,typescriptDeprecated,typescriptDomErrNo,typescriptDomNodeConsts,typescriptHtmlEvents,typescriptDotNotation,typescriptBrowserObjects,typescriptDOMObjects,typescriptAjaxObjects,typescriptPropietaryObjects,typescriptDOMMethods,typescriptHtmlElemProperties,typescriptDOMProperties,typescriptEventListenerKeywords,typescriptEventListenerMethods,typescriptAjaxProperties,typescriptAjaxMethods,typescriptFuncArg,typescriptGlobalNodeObjects
+syntax cluster typescriptAll contains=typescriptComment,typescriptLineComment,typescriptDocComment,typescriptStringD,typescriptStringS,typescriptStringB,typescriptRegexpString,typescriptNumber,typescriptFloat,typescriptDecorators,typescriptLabel,typescriptSource,typescriptType,typescriptOperator,typescriptBoolean,typescriptNull,typescriptFuncKeyword,typescriptConditional,typescriptGlobal,typescriptRepeat,typescriptBranch,typescriptStatement,typescriptGlobalObjects,typescriptMessage,typescriptIdentifier,typescriptStorageClass,typescriptExceptions,typescriptReserved,typescriptDeprecated,typescriptDomErrNo,typescriptDomNodeConsts,typescriptHtmlEvents,typescriptDotNotation,typescriptBrowserObjects,typescriptDOMObjects,typescriptAjaxObjects,typescriptPropietaryObjects,typescriptDOMMethods,typescriptHtmlElemProperties,typescriptDOMProperties,typescriptEventListenerKeywords,typescriptEventListenerMethods,typescriptAjaxProperties,typescriptAjaxMethods,typescriptFuncArg,typescriptGlobalNodeObjects,typescriptTypeDefinition,typescriptFuncCall,typescriptArrowFunction
 
 if main_syntax == "typescript"
   syntax sync clear
@@ -208,6 +212,7 @@ syn match typescriptParens "[()]"
 syn match typescriptEndColons "[;,]"
 syn match typescriptLogicSymbols "\(&&\)\|\(||\)\|\(!\)"
 syn match typescriptOpSymbols "=\{1,3}\|!==\|!=\|<\|>\|>=\|<=\|++\|+=\|--\|-="
+syn match typescriptArrowFunction /=>/
 
 " typescriptFold Function {{{
 
@@ -270,6 +275,8 @@ if version >= 508 || !exists("did_typescript_syn_inits")
   HiLink typescriptRepeat Repeat
   HiLink typescriptStatement Statement
   HiLink typescriptFuncKeyword Keyword
+  HiLink typescriptArrowFunction Keyword
+  HiLink typescriptFuncCall Keyword
   HiLink typescriptMessage Keyword
   HiLink typescriptDeprecated Exception
   HiLink typescriptError Error
@@ -278,6 +285,7 @@ if version >= 508 || !exists("did_typescript_syn_inits")
   HiLink typescriptParensErrB Error
   HiLink typescriptParensErrC Error
   HiLink typescriptReserved Keyword
+  HiLink typescriptTypeDefinition Keyword
   HiLink typescriptOperator Operator
   HiLink typescriptType Type
   HiLink typescriptNull Type
