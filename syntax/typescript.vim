@@ -155,6 +155,7 @@ syntax keyword typescriptTypeDefinition type interface
 "}}}
 
 syntax match typescriptFuncCall /\<\K\k*\ze\s*(/
+syntax match typescriptFuncNameDefinition /\(function\s*\)\@<=\<\K\k*\ze\s*(/
 
 " Follow stuff should be highligh within a special context
 " While it can't be handled with context depended with Regex based highlight
@@ -193,7 +194,7 @@ syntax match typescriptDotNotation "\.style\." nextgroup=typescriptCssStyles
 
 
 "" Code blocks
-syntax cluster typescriptAll contains=typescriptComment,typescriptLineComment,typescriptDocComment,typescriptStringD,typescriptStringS,typescriptStringB,typescriptRegexpString,typescriptNumber,typescriptFloat,typescriptDecorators,typescriptLabel,typescriptSource,typescriptType,typescriptOperator,typescriptBoolean,typescriptNull,typescriptFuncKeyword,typescriptConditional,typescriptGlobal,typescriptRepeat,typescriptBranch,typescriptStatement,typescriptGlobalObjects,typescriptMessage,typescriptIdentifier,typescriptStorageClass,typescriptExceptions,typescriptReserved,typescriptDeprecated,typescriptDomErrNo,typescriptDomNodeConsts,typescriptHtmlEvents,typescriptDotNotation,typescriptBrowserObjects,typescriptDOMObjects,typescriptAjaxObjects,typescriptPropietaryObjects,typescriptDOMMethods,typescriptHtmlElemProperties,typescriptDOMProperties,typescriptEventListenerKeywords,typescriptEventListenerMethods,typescriptAjaxProperties,typescriptAjaxMethods,typescriptFuncArg,typescriptGlobalNodeObjects,typescriptTypeDefinition,typescriptFuncCall,typescriptArrowFunction
+syntax cluster typescriptAll contains=typescriptComment,typescriptLineComment,typescriptDocComment,typescriptStringD,typescriptStringS,typescriptStringB,typescriptRegexpString,typescriptNumber,typescriptFloat,typescriptDecorators,typescriptLabel,typescriptSource,typescriptType,typescriptOperator,typescriptBoolean,typescriptNull,typescriptFuncKeyword,typescriptConditional,typescriptGlobal,typescriptRepeat,typescriptBranch,typescriptStatement,typescriptGlobalObjects,typescriptMessage,typescriptIdentifier,typescriptStorageClass,typescriptExceptions,typescriptReserved,typescriptDeprecated,typescriptDomErrNo,typescriptDomNodeConsts,typescriptHtmlEvents,typescriptDotNotation,typescriptBrowserObjects,typescriptDOMObjects,typescriptAjaxObjects,typescriptPropietaryObjects,typescriptDOMMethods,typescriptHtmlElemProperties,typescriptDOMProperties,typescriptEventListenerKeywords,typescriptEventListenerMethods,typescriptAjaxProperties,typescriptAjaxMethods,typescriptFuncArg,typescriptGlobalNodeObjects,typescriptTypeDefinition,typescriptFuncCall,typescriptArrowFunction,typescriptFuncNameDefinition
 
 if main_syntax == "typescript"
   syntax sync clear
@@ -277,6 +278,7 @@ if version >= 508 || !exists("did_typescript_syn_inits")
   HiLink typescriptFuncKeyword Keyword
   HiLink typescriptArrowFunction Keyword
   HiLink typescriptFuncCall Keyword
+  HiLink typescriptFuncNameDefinition Function
   HiLink typescriptMessage Keyword
   HiLink typescriptDeprecated Exception
   HiLink typescriptError Error
